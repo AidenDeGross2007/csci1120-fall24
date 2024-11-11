@@ -1,0 +1,199 @@
+#ifndef circleType_H
+
+#define circleType_H
+
+class circleType
+
+{
+
+public:
+
+void print();
+
+void setRadius(double r);
+
+double getRadius();
+
+double area();
+
+double circumference();
+
+circleType(double r = 0);
+
+private:
+
+double radius;
+
+};
+
+#endif
+
+
+
+
+
+
+#include <iostream>
+
+#include "circleType.h"
+
+
+using namespace std;
+
+
+void circleType::print()
+
+{
+
+cout << "Radius = " << radius
+
+<< ", area = " << area()
+
+<< ", circumference = " << circumference();
+
+}
+
+
+void circleType::setRadius(double r)
+
+{
+
+if (r >= 0)
+
+radius = r;
+
+else
+
+radius = 0;
+
+}
+
+
+double circleType::getRadius()
+
+{
+
+return radius;
+
+}
+
+
+double circleType::area()
+
+{
+
+return 3.1416 * radius * radius;
+
+}
+
+
+double circleType::circumference()
+
+{
+
+return 2 * 3.1416 * radius;
+
+}
+
+
+circleType::circleType(double r)
+
+{
+
+setRadius(r);
+
+}
+
+
+
+
+// cylinderType.h
+
+#ifndef cylinderType_H
+#define cylinderType_H
+
+#include "circleType.h"
+
+class cylinderType : public circleType
+{
+public:
+    void printVolume();
+    void printSurfaceArea();
+    double setHeight(double h);
+    void setCylinder(double r, double h);
+    double getHeight();
+
+    cylinderType(double r = 0, double h = 0);
+
+private:
+    double height;
+};
+
+#endif
+
+
+
+
+
+
+//cylinderTypeImp.cpp
+#include <iostream>
+#include "cylinderType.h"
+using namespace std;
+
+void cylinderType::printVolume()
+{
+    cout << "Volume = " << area() * height;
+}
+
+
+void cylinderType::printSurfaceArea()
+{
+    cout << "Surface Area = " << 2 * area() + 2 * 3.1416 * getRadius() * height;
+}
+
+double cylinderType::setHeight(double h)
+{
+    if (h >= 0)
+        height = h;
+    else
+        height = 0;
+}
+double cylinderType::getHeight(){
+    return height;
+}
+void cylinderType::setCylinder(double r, double h)
+{
+    setRadius(r);
+    setHeight(h);
+}
+
+cylinderType::cylinderType(double r, double h)
+    : circleType(r), height(h)
+{
+}
+
+
+
+// main.cpp
+
+#include <iostream>
+#include "cylinderType.h"
+using namespace std;
+
+int main()
+{
+    cylinderType myCylinder(5, 10);
+
+    cout << "Cylinder properties:" << endl;
+    myCylinder.print();
+    cout << ", height = " << myCylinder.getHeight() << endl;
+
+    cout << "Cylinder volume and surface area:" << endl;
+    myCylinder.printVolume();
+    cout << ", ";
+    myCylinder.printSurfaceArea();
+    cout << endl;
+
+    return 0;
+}
